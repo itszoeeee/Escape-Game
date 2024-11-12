@@ -1,0 +1,16 @@
+#!/bin/bash
+mkdir -p game_files
+cd game_files
+echo "Indice pour le 1er chiffre" > file_1
+truncate -s 1024 file_1 # Fichier de 1 Ko
+for i in {2..10}; do
+    echo "Ceci est un fichier inutile" > "file_$i"
+    truncate -s $((RANDOM % 500 + 500)) "file_$i"
+done
+echo "2" > 2eme_chiffre
+chmod 644 2eme_chiffre
+echo "3" > 3eme_chiffre
+echo -e "#!/bin/bash\n\nread -p 'Entrez le code à trois chiffres: ' code\nif [[ \"\$code\" == \"123\" ]]; then\n  echo 'Bravo tu as reussi a sortir!'\nelse\n  echo 'Perdu, reessaie.'\nfi" > cadenas.sh
+chmod +x cadenas.sh
+echo "L'escape game est prêt. Suivez les instructions pour trouver le code à trois chiffres!"
+
